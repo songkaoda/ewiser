@@ -24,7 +24,6 @@ args1=(\
 --clip-norm 1.0  \
 --context-embeddings \
 --context-embeddings-type bert \
---context-embeddings-bert-model roberta-large \
 --context-embeddings-cache \
 --only-use-targets \
 --log-format tqdm \
