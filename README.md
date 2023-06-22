@@ -129,7 +129,7 @@ Union's Horizon 2020 research and innovation programme.
 
 This work was supported in part by the MIUR under the grant "Dipartimenti di eccellenza 2018-2022" of the Department of Computer Science of the Sapienza University of Rome.
 
-### Reroducing the system
+## Reroducing the system
 
 This is the reproducing procedure for me.
 
@@ -160,7 +160,7 @@ import nltk
 nltk.download('wordnet')
 ```
 
-### Using the BIT CUDA Machine
+## Using the BIT CUDA Machine
 - connect to the log-in server(host-name: login-stud.informatik.uni-bonn.de ) of BIT, with your Bit account
 - ssh to a certain cuda machine
 ```
