@@ -128,3 +128,47 @@ The authors gratefully acknowledge the support of the <a href="http://mousse-pro
 Union's Horizon 2020 research and innovation programme.
 
 This work was supported in part by the MIUR under the grant "Dipartimenti di eccellenza 2018-2022" of the Department of Computer Science of the Sapienza University of Rome.
+
+### Reroducing the system
+
+This is the reproducing procedure for me.
+
+you may use the latest pytorch, please be sure to install the corresponding version of torch-scatter, for me on bit cuda machine, it's
+```
+pip install torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.0.0%2Bcu118.html
+```
+Models are less likely to support new versions of fairseq, cause this model is based on fairseqext, some args are not supported on latest version of fairseq.
+
+The pretrained embedding model used in the running script is not supported by the package pytorch_pretrained_bert now. 
+```
+--context-embeddings-bert-model roberta-large \ 
+``` 
+Plus many of model supported by the package will not fit in the system, I have to remove the previous line in the run script, the default pre-training context embedding will be used in the system
+
+
+to reproduce the whole system, you need to download the pretrained output embeddings, it's a large size file, here is the download script, and move it to the dedicated directory
+```
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=11v4FUMyHdpFBrkRJt8cGyy6xkM9a_Emp' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=11v4FUMyHdpFBrkRJt8cGyy6xkM9a_Emp" -O sensembert+lmms.svd512.synset-centroid.vec && rm -rf /tmp/cookies.txt
+
+cp /sensembert+lmms.svd512.synset-centroid.vec res/embeddings
+```
+
+
+Also, wordnet is need in order to run the code.
+```
+import nltk 
+nltk.download('wordnet')
+```
+
+### Using the BIT CUDA Machine
+- connect to the log-in server(host-name: login-stud.informatik.uni-bonn.de ) of BIT, with your Bit account
+- ssh to a certain cuda machine
+```
+ssh <username>@bitcuda-<N>.bit.uni-bonn.de
+```
+- edit the bashrc file in order to enable network, add those lines:
+```
+export http_proxy=http://erato.cs.uni-bonn.de:3128
+export https_proxy=http://erato.cs.uni-bonn.de:3128
+```
+- create a directory under     /opt/mlfta/<username> *Everything* (i.e., conda environments, larger files, datasets, models, results, etc.) is supposed to be stored in this directory instead of the user's home 
